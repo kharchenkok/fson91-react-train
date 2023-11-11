@@ -3,6 +3,8 @@ import Dropdown from './Dropdown';
 import ColorPicker from './ColorPicker';
 import Counter from './Counter';
 import TodoList from './TodoList';
+import Counter2 from './Counter2';
+import Modal from './Modal';
 import initialTodos from '../components/TodoList/todos.json';
 
 const colorPickerOptions = [
@@ -17,6 +19,15 @@ const colorPickerOptions = [
 class App extends Component {
   state = {
     todos: initialTodos,
+    isShowModal: false,
+  };
+
+  handleOpenModal = () => {
+    this.setState({ isShowModal: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isShowModal: false });
   };
 
   deleteTodo = (todoId) => {
@@ -25,7 +36,7 @@ class App extends Component {
     }));
   };
   render() {
-    const { todos } = this.state;
+    const { todos, isShowModal } = this.state;
     const totalTodoCount = todos.length;
     // const completedTodosCount = todos.filter((todo) => todo.completed).length;
     const completedTodosCount = todos.reduce(
@@ -43,6 +54,16 @@ class App extends Component {
           <p>Кількість виконаних завдань:{completedTodosCount} </p>
         </div>
         <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+
+        <h2>Train 2</h2>
+        <Counter2 />
+        <button
+          className="btn btn-success mx-auto "
+          onClick={this.handleOpenModal}
+        >
+          Modal Open
+        </button>
+        {isShowModal && <Modal close={this.handleCloseModal}>Modal text</Modal>}
       </div>
     );
   }
