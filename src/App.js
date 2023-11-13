@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TodoList from './components/TodoList';
 import CreateTodoForm from './components/Forms';
+import shortid from 'shortid';
 
 import data from './todo.json';
 
@@ -11,11 +12,18 @@ class App extends Component {
   addTodo = (newTodo) => {
     const todoObj = {
       ...newTodo,
-      id: '',
+      id: shortid.generate(),
       completed: false,
     };
+
     this.setState((prevState) => ({
-      todos: [newTodo, ...prevState.todos],
+      todos: [todoObj, ...prevState.todos],
+    }));
+  };
+
+  deleteTodo = (todoId) => {
+    this.setState((prevState) => ({
+      todos: prevState.todos.filter((todo) => todo.id !== todoId),
     }));
   };
 
@@ -23,8 +31,8 @@ class App extends Component {
     const { todos } = this.state;
     return (
       <div className="container">
-        <CreateTodoForm />
-        <TodoList todo={todos} />
+        <CreateTodoForm addTodo={this.addTodo} />
+        <TodoList todo={todos} deleteTodo={this.deleteTodo} />
       </div>
     );
   }

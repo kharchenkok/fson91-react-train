@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, deleteTodo }) => {
   return (
     <li className="list-group-item d-flex justify-content-between align-items-center">
       <div className="me-4">
@@ -9,7 +9,12 @@ const Todo = ({ todo }) => {
       </div>
       <div className="d-flex justify-content-between align-items-center">
         <p>{todo.completed.toString()}</p>
-        <button className="btn btn-danger ms-4">Delete</button>
+        <button
+          className="btn btn-danger ms-4"
+          onClick={() => deleteTodo(todo.id)}
+        >
+          Delete
+        </button>
       </div>
     </li>
   );

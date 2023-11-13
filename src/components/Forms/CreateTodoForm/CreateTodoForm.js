@@ -7,7 +7,16 @@ export default class CreateTodoForm extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('handleSubmit event', event);
+    const { title, description } = this.state;
+    if (title === '' || description === '') {
+      alert('Please fill all fields');
+      return;
+    }
+    this.props.addTodo(this.state);
+    this.setState({
+      title: '',
+      description: '',
+    });
   };
   handleChange = ({ target: { name, value } }) => {
     this.setState({
