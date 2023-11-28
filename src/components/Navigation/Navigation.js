@@ -5,31 +5,31 @@ import styles from './Navigation.module.css';
 const Navigation = () => (
   <nav>
     <NavLink
-      to="/signup"
+      to="/skip-first-render"
       className={({ isActive }) => (isActive ? styles.active : styles.link)}
     >
-      Форма
+      Пропуск первого рендера
     </NavLink>
 
     <NavLink
-      to="/colorpicker"
+      to="/pokemon"
       className={({ isActive }) => (isActive ? styles.active : styles.link)}
     >
-      Колорпикер
+      Покемоны с хуками
     </NavLink>
 
     <NavLink
       to="/counter"
       className={({ isActive }) => (isActive ? styles.active : styles.link)}
     >
-      Счётчик
+      useReducer
     </NavLink>
 
     <NavLink
-      to="/clock"
+      to="/notes"
       className={({ isActive }) => (isActive ? styles.active : styles.link)}
     >
-      Часы
+      useMemo
     </NavLink>
   </nav>
 );
