@@ -1,19 +1,11 @@
-import ReactDOM from 'react-dom/client';
-import React from 'react';
-
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import AuthProvider from './contexts/auth/Provider';
-import 'modern-normalize/modern-normalize.css';
-import './index.css';
-import 'react-toastify/dist/ReactToastify.css';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import App from './App'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
-);
+	<BrowserRouter>
+		<App />
+	</BrowserRouter>
+)
