@@ -1,5 +1,9 @@
-const HomePage = () => {
-  return <div>HomePage</div>;
+const Home = () => {
+  // useEffect(() => {
+  // HTTP запрос, если нужно
+  // }, [])
+
+  return <div>Домашняя страница 🐷</div>;
 };
 
-export default HomePage;
+export default Home;

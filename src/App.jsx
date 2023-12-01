@@ -1,43 +1,22 @@
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage';
-import TodoPage from './pages/TodoPage';
-import Layout from './Layout';
-// import ProductsDetailsPage from './pages/ProductsPage/ProductsDetailsPage'
+import { Layout } from './Layout';
+import Home from './pages/HomePage';
+import Dogs from './pages/Dogs';
+import DogDetails from './pages/DogDetails';
+import { SubBreeds } from './components/SubBreeds/SubBreeds';
+import { Gallery } from './components/Gallery/Gallery';
 
-const App = () => {
+export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="products" element={<ProductsPage />} />
-        <Route path="todo" element={<TodoPage />} />
+        <Route index element={<Home />} />
+        <Route path="dogs" element={<Dogs />} />
+        <Route path="dogs/:dogId" element={<DogDetails />}>
+          <Route path="subbreeds" element={<SubBreeds />} />
+          <Route path="gallery" element={<Gallery />} />
+        </Route>
       </Route>
     </Routes>
   );
 };
-// const App = () => {
-// 	return (
-// 		<Routes>
-// 			<Route path='/' element={<Layout />}>
-// 				<Route index element={<HomePage />} />
-// 				{/* <Route path='products' element={<ProductsPage />}>
-// 					<Route
-// 						path='productsDetails/:idProduct'
-// 						element={<ProductsDetailsPage />}
-// 					/>
-// 				</Route> */}
-// 				<Route path='products' element={<ProductsPage />} />
-// 				{/* <Route
-// 					path='productsDetails/:idProduct'
-// 					element={<ProductsDetailsPage />}
-// 				>
-// 					<Route path=':ownerId' element={<ProductsDetailsPage />} />
-// 				</Route> */}
-// 				<Route path='todo' element={<TodoPage />} />
-// 			</Route>
-// 		</Routes>
-// 	)
-// }
-
-export default App;
