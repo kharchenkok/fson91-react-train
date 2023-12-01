@@ -1,5 +1,7 @@
-const TodoPage = () => {
-	return <div>TodoPage</div>
-}
+import TodoList from '../../components/TodoList';
 
-export default TodoPage
+const TodoPage = () => {
+  return <TodoList />;
+};
+
+export default TodoPage;

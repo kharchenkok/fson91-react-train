@@ -1,12 +1,56 @@
-import { Link, Outlet } from 'react-router-dom';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { getProductsWithSearch } from '../../api/products';
+import FormikSearchProducts from '../../components/Forms/FormikSearchProducts';
+import ProductsListWithSearch from '../../components/ProductsListWithSearch';
 
 const ProductsPage = () => {
+  const [query, setQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [products, setProducts] = useState(null);
+  const [counter, setCounter] = useState(0);
+
+  const sortedProducts = useMemo(() => {
+    return (
+      products &&
+      products.toSorted((a, b) => {
+        console.log('sorting');
+        for (let i = 0; i < 10000000; i++) {}
+        return a.price - b.price;
+      })
+    );
+  }, [products]);
+  const handleProducts = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const data = await getProductsWithSearch(query);
+      setProducts(data.products);
+      setError('');
+    } catch (error) {
+      setError(error.response.data);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [query]);
+
+  useEffect(() => {
+    if (query) {
+      handleProducts();
+    }
+  }, [handleProducts, query]);
+
+  const handleSubmit = ({ query }) => {
+    setQuery(query);
+  };
   return (
-    <div>
-      <h2>ProductsPage</h2>
-      <Link to={'123'}>Details</Link>
-      <Outlet />
-    </div>
+    <>
+      <button onClick={handleProducts}>click</button>
+      <button onClick={() => setCounter((prev) => prev + 1)}>{counter}</button>
+      {isLoading && <h1>Loading...</h1>}
+      {error && <h1>{error}</h1>}
+      <FormikSearchProducts submit={handleSubmit} />
+      {sortedProducts && <ProductsListWithSearch products={sortedProducts} />}
+    </>
   );
 };
 
