@@ -1,10 +1,9 @@
 // import { PureComponent } from 'react';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import styles from './ColorPicker.module.css';
 
-export default function ColorPicker({ options }) {
+function ColorPicker({ options }) {
   const [activeOptionIdx, setActiveOptionIdx] = useState(0);
-
   const makeOptionClassName = (index) => {
     return index === activeOptionIdx ? styles.activeOption : styles.option;
   };
@@ -28,6 +27,8 @@ export default function ColorPicker({ options }) {
     </div>
   );
 }
+
+export default memo(ColorPicker);
 
 // export class OldColorPicker extends PureComponent {
 //   state = {

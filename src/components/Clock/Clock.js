@@ -1,15 +1,15 @@
-import { Component, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './Clock.module.css';
 
-export default function Clock() {
+const Clock = () => {
   const [time, setTime] = useState(new Date());
-
   const intervalId = useRef(null);
 
   useEffect(() => {
     intervalId.current = setInterval(() => {
       setTime(new Date());
     }, 1000);
+
     return () => {
       stop();
     };
@@ -21,13 +21,16 @@ export default function Clock() {
 
   return (
     <>
-      <p style={styles.clockface}>Текущее время: {time.toLocaleTimeString()}</p>
+      <p className={styles.clockface}>
+        Текущее время: {time.toLocaleTimeString()}
+      </p>
       <button type="button" onClick={stop}>
         Stop
       </button>
     </>
   );
-}
+};
+export default Clock;
 
 // export default class Clock extends Component {
 //   state = {

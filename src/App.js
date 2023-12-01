@@ -4,6 +4,7 @@ import SignupForm from './components/SignupForm/SignupForm';
 import ColorPicker from './components/ColorPicker/ColorPicker';
 import Counter from './components/Counter/Counter';
 import Clock from './components/Clock/Clock';
+import News from './components/News/News';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -27,14 +28,15 @@ export default function App() {
     <div style={containerStyles}>
       <AppBar />
       <Routes>
+        <Route exact path="/counter" element={<Counter />} />
         <Route exact path="/signup" element={<SignupForm />} />
         <Route
           exact
           path="/colorpicker"
           element={<ColorPicker options={colorPickerOptions} />}
         />
-        <Route exact path="/counter" element={<Counter />} />
         <Route exact path="/clock" element={<Clock />} />
+        <Route exact path="/news" element={<News />} />
       </Routes>
     </div>
   );

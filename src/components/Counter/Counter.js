@@ -1,39 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 // import { Component } from 'react';
 import styles from './Counter.module.css';
+import useHandleCounter from '../../hooks/useHandleCounter';
 
 export default function Counter() {
-  const [counterA, setCounterA] = useState(0);
-  const [counterB, setCounterB] = useState(0);
-
-  const handleCounterAIncrement = () => {
-    setCounterA((prevState) => prevState + 1);
-  };
-
-  const handleCounterBIncrement = () => {
-    setCounterB((prevState) => prevState + 1);
-  };
+  const [counterA, incrementA] = useHandleCounter(0);
+  const [counterB, incrementB] = useHandleCounter(0);
 
   useEffect(() => {
     const totalClicks = counterA + counterB;
-
     document.title = `Всего кликнули ${totalClicks} раз`;
   }, [counterA, counterB]);
+
   return (
     <>
-      <button
-        className={styles.btn}
-        type="button"
-        onClick={handleCounterAIncrement}
-      >
+      <button className={styles.btn} type="button" onClick={incrementA}>
         Кликнули counterA {counterA} раз
       </button>
 
-      <button
-        className={styles.btn}
-        type="button"
-        onClick={handleCounterBIncrement}
-      >
+      <button className={styles.btn} type="button" onClick={incrementB}>
         Кликнули counterB {counterB} раз
       </button>
     </>

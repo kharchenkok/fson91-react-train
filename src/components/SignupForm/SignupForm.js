@@ -3,51 +3,46 @@ import styles from './SignupForm.module.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 export default function SignupForm() {
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+
   const [email, setEmail] = useLocalStorage('email', '');
   const [password, setPassword] = useLocalStorage('password', '');
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
-      case 'email':
-        setEmail(value);
-        break;
-      case 'password':
-        setPassword(value);
-        break;
-      default:
-        console.log(`Тип поля ${name} не обрабатывается`);
-    }
+  const handleEmailChange = (event) => {
+    const { value } = event.target;
+    setEmail(value);
   };
-  // Заміняємо на хук useLocalStorage
-  // useEffect(() => {
-  //   window.localStorage.setItem('email', email);
-  // }, [email]);
-  //
-  // useEffect(() => {
-  //   window.localStorage.setItem('password', password);
-  // }, [password]);
-  // ============================================================
-  // const handleEmailChange = (event) => {
-  //   setEmail(event.target.value);
-  // };
-  // const handlePasswordChange = (event) => {
-  //   setPassword(event.target.value);
-  // };
-  // або;
-  // const [formState, setFormState] = useState({ email: '', password: '' });
+  const handlePasswordChange = (event) => {
+    const { value } = event.target;
+    setPassword(value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(email, password);
+  };
   // const handleChange = (event) => {
   //   const { name, value } = event.target;
-  //   setFormState((prev) => ({ ...prev, [name]: value }));
+  //   switch (name) {
+  //     case 'email':
+  //       setEmail(value);
+  //       break;
+  //     case 'password':
+  //       setPassword(value);
+  //       break;
+  //     default:
+  //       break;
+  //   }
   // };
   return (
-    <form className={styles.form} autoComplete="off">
+    <form className={styles.form} autoComplete="off" onSubmit={handleSubmit}>
       <label className={styles.label}>
         <span>Почта</span>
         <input
           type="email"
           name="email"
-          onChange={handleChange}
+          onChange={handleEmailChange}
           value={email}
         />
       </label>
@@ -57,7 +52,7 @@ export default function SignupForm() {
           type="password"
           name="password"
           value={password}
-          onChange={handleChange}
+          onChange={handlePasswordChange}
         />
       </label>
 
@@ -66,21 +61,21 @@ export default function SignupForm() {
   );
 }
 
-// class OldSignupForm extends Component {
+// export default class SignupForm extends Component {
 //   state = {
 //     email: '',
 //     password: '',
 //   };
-//
-//   handleChange = (evt) => {
-//     const { name, value } = evt.target;
-//     this.setState({ [name]: value });
-//   };
-//
+
+// handleChange = evt => {
+//   const { name, value } = evt.target;
+//   this.setState({ [name]: value });
+// };
+
 //   render() {
 //     return (
-//       <form className={styles.form} autoComplete="off">
-//         <label className={styles.label}>
+//       <form style={styles.form} autoComplete="off">
+//         <label style={styles.label}>
 //           <span>Почта</span>
 //           <input
 //             type="email"
@@ -89,8 +84,8 @@ export default function SignupForm() {
 //             value={this.state.email}
 //           />
 //         </label>
-//
-//         <label className={styles.label}>
+
+//         <label style={styles.label}>
 //           <span>Пароль</span>
 //           <input
 //             type="password"
@@ -99,11 +94,9 @@ export default function SignupForm() {
 //             value={this.state.password}
 //           />
 //         </label>
-//
+
 //         <button type="submit">Зарегистрироваться</button>
 //       </form>
 //     );
 //   }
 // }
-//
-// export default SignupForm;

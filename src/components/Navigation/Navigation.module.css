@@ -9,5 +9,5 @@
 
 .active {
     composes: link;
-    color: #2196f3;
+    color: darkred;
 }
