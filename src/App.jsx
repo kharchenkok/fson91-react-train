@@ -1,10 +1,29 @@
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
-import Home from './pages/HomePage';
-import Dogs from './pages/Dogs';
-import DogDetails from './pages/DogDetails';
-import { SubBreeds } from './components/SubBreeds/SubBreeds';
-import { Gallery } from './components/Gallery/Gallery';
+// import Home from './pages/HomePage';
+// import Dogs from './pages/Dogs';
+// import DogDetails from './pages/DogDetails';
+// import { SubBreeds } from './components/SubBreeds/SubBreeds';
+// import { Gallery } from './components/Gallery/Gallery';
+import { lazy } from 'react';
+
+const Home = lazy(() => import('./pages/HomePage'));
+const Dogs = lazy(() => import('./pages/Dogs'));
+const DogDetails = lazy(() => import('./pages/DogDetails'));
+
+// для іменованих експортів (не дефолтних) треба додати додатковий обєкт
+const Gallery = lazy(() =>
+  import('./components/Gallery/Gallery').then((module) => ({
+    ...module,
+    default: module.Gallery,
+  })),
+);
+const SubBreeds = lazy(() =>
+  import('./components/SubBreeds/SubBreeds').then((module) => ({
+    ...module,
+    default: module.SubBreeds,
+  })),
+);
 
 export const App = () => {
   return (
