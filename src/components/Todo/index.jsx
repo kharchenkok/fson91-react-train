@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import {
   changeStatusAction,
   deleteTodoAction,
-} from '../../store/todo/todoActions';
+} from '../../store/todo/todoSlice';
 
 const Todo = ({ todo }) => {
   const dispatch = useDispatch();

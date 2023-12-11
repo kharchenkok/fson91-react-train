@@ -1,31 +1,43 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { reducer } from './reducer';
+import {
+  persistStore,
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from 'redux-persist';
 
-export const store = createStore(reducer);
+export const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
 
-store.dispatch({ type: 'increment', payload: 10 }); //для прикладу
+export const persistor = persistStore(store);
 
-// аналогія з useState
-// const [getState, dispatch] = useState("");
+// ============================================з combineReducers====================================================
 
-// const reducer = (state, action) => {
-//   if (action.type === 'increment') {
-//     return { ...state, total: state.total + action.payload };
-//   }
-//   if (action.type === 'createUser') {
-//     return { ...state, user: [...state.user, action.payload] };
-//   }
-//   return state;
+// import { configureStore } from '@reduxjs/toolkit';
+// import { reducer } from './reducer';
+// import { persistStore, persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+//
+// const persistConfig = {
+//   key: 'todo',
+//   storage,
+//   whitelist: ['todo'],
+//   blacklist: ['user'],
 // };
 //
-// export const store = createStore(reducer, { total: 0, user: [], todo: [] });
+// const persistedReducer = persistReducer(persistConfig, reducer);
 //
-// store.dispatch({ type: 'increment', payload: 10 });
-// store.dispatch({ type: 'increment', payload: 2 });
-// store.dispatch({ type: 'createUser', payload: 'Alex' });
-// store.dispatch({ type: 'createUser', payload: 'Mary' });
+// export const store = configureStore({ reducer: persistedReducer });
 //
-// console.log(store.getState());
-//
-// // аналогія з useState
-// // const [getState, dispatch] = useState("");
+// export const persistor = persistStore(store);
