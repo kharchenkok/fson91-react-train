@@ -1,5 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { nanoid } from 'nanoid';
 
 // export const deleteTodoAction = (id) => ({ type: DELETE_TODO, payload: id });
 
@@ -22,7 +21,7 @@ export const changeStatusAction = createAction('CHANGE_STATUS');
 export const addTodoAction = createAction('ADD_TODO', (todo) => ({
   payload: {
     ...todo,
-    id: nanoid(),
+    id: Math.random().toString(36).substr(2, 9),
     completed: false,
   },
 }));

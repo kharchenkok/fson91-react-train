@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const todoSlice = createSlice({
   name: 'todo',
@@ -12,7 +12,7 @@ const todoSlice = createSlice({
         return {
           payload: {
             ...todo,
-            id: nanoid(),
+            id: Math.random().toString(36).substr(2, 9),
             completed: false,
           },
         };

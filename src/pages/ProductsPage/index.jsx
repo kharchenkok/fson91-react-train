@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getProductsWithSearch } from '../../api/products';
+import React from 'react';
 
 import ProductsListWithSearch from '../../components/ProductsListWithSearch';
 import FormSearchProducts from '../../components/Forms/FormSearchProducts';
