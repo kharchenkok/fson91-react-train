@@ -1,19 +1,11 @@
 import { useDispatch } from 'react-redux';
-import React from 'react';
-import {
-  changeStatusAction,
-  deleteTodoAction,
-} from '../../store/todo/todoSlice';
+import { deleteTodoAction } from '../../store/todo/todoSlice';
 
 const Todo = ({ todo }) => {
   const dispatch = useDispatch();
-  const changeStatus = (id) => {
-    dispatch(changeStatusAction(id));
-  };
-  const deleteTodo = (id) => {
+  const deleteTodo = id => {
     dispatch(deleteTodoAction(id));
   };
-
   return (
     <li className="list-group-item d-flex justify-content-between">
       <div>
@@ -23,7 +15,7 @@ const Todo = ({ todo }) => {
       <div className="d-flex justify-content-between">
         <button
           className="btn btn-warning ms-4"
-          onClick={() => changeStatus(todo.id)}
+          // onClick={() => changeStatus(todo.id)}
         >
           {todo.completed.toString()}
         </button>

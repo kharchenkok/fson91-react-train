@@ -1,57 +1,49 @@
-import {
-  Link,
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
-import React, { useCallback, useEffect, useState } from 'react';
-import { getProductById } from '../../api/products';
-import Product from '../../components/Product';
+import { useCallback, useEffect, useState } from 'react'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { getSingleProduct } from '../../api/products'
+import Product from '../../components/Product'
 
 const ProductsDetailsPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [product, setProduct] = useState(null);
+	const { id } = useParams()
+	const navigate = useNavigate()
+	const location = useLocation()
 
-  const { idProduct } = useParams();
+	const [isLoading, setIsLoading] = useState(false)
+	const [error, setError] = useState('')
+	const [product, setProduct] = useState(null)
 
-  const location = useLocation();
+	const handleProduct = useCallback(async () => {
+		try {
+			setIsLoading(true)
+			const data = await getSingleProduct(id)
+			setProduct(data)
+			setError('')
+		} catch (error) {
+			setError(error.response.data)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [id])
 
-  const navigate = useNavigate();
+	useEffect(() => {
+		id && handleProduct()
+	}, [handleProduct, id])
 
-  const handleClick = () => {
-    navigate(location.state);
-  };
+	const handleClick = () => {
+		navigate(location.state, { state: 'qrwety' })
+	}
+	return (
+		<>
+			{isLoading && 'loading...'}
+			{error && 'error...'}
+			{/* <Link to={location.state}>Back</Link> */}
 
-  const handleProduct = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const data = await getProductById(idProduct);
-      setProduct(data);
-      setError('');
-    } catch (error) {
-      setError(error.response.data);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [idProduct]);
+			{/* {isLogin ? <HomePage /> : <Navigate to={'/login'} />} */}
+			<Navigate to={'/'} />
+			<button onClick={handleClick}>back</button>
+			{product && <Product product={product} isDetails />}
+		</>
+	)
+}
 
-  useEffect(() => {
-    idProduct && handleProduct();
-  }, [handleProduct, idProduct]);
-
-  return (
-    <>
-      {isLoading && <h1>Loading...</h1>}
-      {error && <Navigate to={'/'} />}
-      <Link to={location.state}>Back</Link>
-      <button type={'button'} onClick={handleClick}>
-        Back
-      </button>
-      {product && <Product product={product} key={product.id} />}
-    </>
-  );
-};
-
-export default ProductsDetailsPage;
+export default ProductsDetailsPage
