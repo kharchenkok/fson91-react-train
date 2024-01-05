@@ -1,25 +1,32 @@
-// import { combineReducers } from 'redux'
-// import { todoReducer } from './todo/todoReducer'
-import { todoReducer } from './todo/todoSlice'
-import { userReducer } from './user/userReducer'
-import storage from 'redux-persist/lib/storage'
-import { persistReducer } from 'redux-persist'
-import { productsReducer } from './products/productsSlice'
+import { todoReducer } from './todo/todoSlice';
+import { userReducer } from './user/userReducer';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+import { productsReducer } from './products/productsSlice';
+import { rootReducer } from './root/rootSlice';
+import { authReducer } from './auth/authSlice';
+import { postsReducer } from './posts/postsSlice';
 
-const persistConfig = {
-	key: 'todo',
-	storage,
-	blacklist: ['secretKey'],
-}
+const persistConfigTodo = {
+  key: 'todo',
+  storage,
+  blacklist: ['secretKey'],
+};
 
-const persistedReducer = persistReducer(persistConfig, todoReducer)
+const persistConfigAuth = {
+  key: 'token',
+  storage,
+  blacklist: ['user'],
+};
+
+const persistedReducerTodo = persistReducer(persistConfigTodo, todoReducer);
+const persistedReducerAuth = persistReducer(persistConfigAuth, authReducer);
 
 export const reducer = {
-	todo: persistedReducer,
-	user: userReducer,
-	products: productsReducer,
-}
-// export const reducer = combineReducers({
-// 	todo: todoReducer,
-// 	user: userReducer,
-// })
+  todo: persistedReducerTodo,
+  user: userReducer,
+  products: productsReducer,
+  root: rootReducer,
+  auth: persistedReducerAuth,
+  posts: postsReducer,
+};
