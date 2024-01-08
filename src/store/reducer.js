@@ -5,7 +5,6 @@ import { persistReducer } from 'redux-persist';
 import { productsReducer } from './products/productsSlice';
 import { rootReducer } from './root/rootSlice';
 import { authReducer } from './auth/authSlice';
-import { postsReducer } from './posts/postsSlice';
 
 const persistConfigTodo = {
   key: 'todo',
@@ -28,5 +27,4 @@ export const reducer = {
   products: productsReducer,
   root: rootReducer,
   auth: persistedReducerAuth,
-  posts: postsReducer,
 };
